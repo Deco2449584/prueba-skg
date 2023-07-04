@@ -51,7 +51,11 @@ export class MapComponent implements OnInit, AfterViewInit {
             new mapboxgl.Popup()
               .setLngLat(coordinates as mapboxgl.LngLatLike)
               .setHTML(
-                `Bus Stop Name: ${busStopName}<br>Address: ${busStopAddress}`
+                `<strong>TIPO:</strong> ${properties.TIPO}<br>` +
+                  `<strong>ADMINISTRA:</strong> ${properties.ADMINISTRA}<br>` +
+                  `<strong>N_RUTAS:</strong> ${properties.N_RUTAS}<br>` +
+                  `<strong>UBICACION:</strong> ${properties.UBICACION}<br>` +
+                  `<strong>ID:</strong> ${properties.ID}`
               )
               .addTo(map);
           }
