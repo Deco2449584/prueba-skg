@@ -1,26 +1,3 @@
-<div class="contenedor">
-  <app-header class="header" [fechaHoraInput]="fechaHora"></app-header>
-  <app-sidebar
-    class="sidebar"
-    (hoverButton)="capturarValor($event)"
-  ></app-sidebar>
-  <div class="hover-div1" *ngIf="mostrarDivs1 && idSeleccionado === 1">
-    <div class="caso1"></div>
-    <div class="caso2"></div>
-  </div>
-  <div class="hover-div2" *ngIf="mostrarDivs1 && idSeleccionado === 2">
-    <div class="caso1"></div>
-    <div class="caso2"></div>
-  </div>
-  <div class="hover-div3" *ngIf="mostrarDivs1 && idSeleccionado === 3">
-    <div class="caso1"></div>
-    <div class="caso2"></div>
-  </div>
-  <div class="hover-div4" *ngIf="mostrarDivs1 && idSeleccionado === 4">
-    <div class="caso2"></div>
-  </div>
-  <div class="bus">
-    <div id="bus"></div>
-  </div>
-  <app-map class="contenido"></app-map>
+<div class="container">
+  <router-outlet></router-outlet>
 </div>
