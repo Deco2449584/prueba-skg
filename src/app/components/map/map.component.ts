@@ -3,6 +3,12 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from '../../environments/environment';
 import { DataService } from '../../data/data.service';
+import {
+  GeoJSONData,
+  Feature,
+  Geometry,
+  Properties,
+} from '../../models/geojson.interface';
 
 // Decorador del componente
 @Component({
@@ -27,6 +33,31 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     // Escuchar el evento 'style.load' del mapa
     map.on('style.load', () => {
+      map.on('click', 'unclustered-point', (e) => {
+        if (e.features && e.features.length > 0) {
+          const feature = e.features[0];
+          const geometry = feature.geometry as Geometry;
+          const properties = feature.properties as Properties;
+
+          if (geometry && geometry.coordinates) {
+            const coordinates = geometry.coordinates.slice();
+            const busStopName = properties.UBICACION || '';
+            const busStopAddress = properties.ESTADO_DE_SENAL || '';
+
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+
+            new mapboxgl.Popup()
+              .setLngLat(coordinates as mapboxgl.LngLatLike)
+              .setHTML(
+                `Bus Stop Name: ${busStopName}<br>Address: ${busStopAddress}`
+              )
+              .addTo(map);
+          }
+        }
+      });
+
       // Añadir el control de navegación al mapa
       map.addControl(new mapboxgl.NavigationControl());
 
@@ -81,11 +112,11 @@ export class MapComponent implements OnInit, AfterViewInit {
                   'circle-color': [
                     'step',
                     ['get', 'point_count'],
-                    '#51bbd6',
+                    '#20d3d8',
+                    20,
+                    '#2099d8',
                     100,
-                    '#f1f075',
-                    750,
-                    '#f28cb1',
+                    '#6d60a9',
                   ],
                   'circle-radius': [
                     'step',
