@@ -14,8 +14,6 @@ export class AppComponent {
   capturarValor(eventData: HoverEventData) {
     this.mostrarDivs1 = eventData.value;
     this.idSeleccionado = eventData.id;
-    console.log(this.mostrarDivs1);
-    console.log(this.idSeleccionado);
 
     // Resto de la lógica para manejar el valor y el ID capturados
   }
