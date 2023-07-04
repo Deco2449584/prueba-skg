@@ -1,0 +1,119 @@
+.modulos {
+  width: 64px;
+  height: 300px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+
+  #psm {
+    background-image: url(../../../assets/img/PMV.svg);
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 50px;
+    cursor: pointer;
+    height: 50px;
+    filter: brightness(20); /* Ajusta el brillo si deseas resaltar la imagen */
+    transition: filter 0.3s;
+  }
+  #psm:hover {
+    filter: brightness(20) drop-shadow(0 0 10px #00ff00);
+  }
+  #aforo {
+    background-image: url(../../../assets/img/Aforo.svg);
+
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 50px;
+    cursor: pointer;
+    height: 50px;
+    filter: brightness(2.2); /* Ajusta el brillo si deseas resaltar la imagen */
+    transition: filter 0.3s;
+  }
+  #aforo:hover {
+    filter: brightness(1.5) drop-shadow(0 0 5px #00ff00);
+  }
+
+  #clima {
+    background-image: url(../../../assets/img/Lateral.svg);
+
+    background-repeat: no-repeat;
+    margin-left: 6px;
+    margin-top: 10px;
+    width: 50px;
+    cursor: pointer;
+    height: 50px;
+    filter: brightness(2.2); /* Ajusta el brillo si deseas resaltar la imagen */
+    transition: filter 0.3s;
+  }
+  #clima:hover {
+    filter: brightness(1.5) drop-shadow(0 0 5px #00ff00);
+  }
+  #police {
+    background-image: url(../../../assets/img/Agentes.svg);
+
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 50px;
+    cursor: pointer;
+    height: 50px;
+    filter: brightness(2.2); /* Ajusta el brillo si deseas resaltar la imagen */
+    transition: filter 0.3s;
+  }
+  #police:hover {
+    filter: brightness(1.5) drop-shadow(0 0 5px #00ff00);
+  }
+  #ad {
+    background-image: url(../../../assets/img/Incidentes.svg);
+
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 50px;
+    cursor: pointer;
+    height: 50px;
+    filter: brightness(2.2); /* Ajusta el brillo si deseas resaltar la imagen */
+    transition: filter 0.3s;
+  }
+  #ad:hover {
+    filter: brightness(1.5) drop-shadow(0 0 5px #00ff00);
+  }
+  #semaforo {
+    background-image: url(../../../assets/img/Tráfico.svg);
+
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 50px;
+    cursor: pointer;
+    height: 50px;
+    filter: brightness(2.2); /* Ajusta el brillo si deseas resaltar la imagen */
+    transition: filter 0.3s;
+  }
+  #semaforo:hover {
+    filter: brightness(1.5) drop-shadow(0 0 5px #00ff00);
+  }
+  .cuadros {
+    width: 95%;
+    height: 50px;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+.capas {
+  width: 64px;
+  height: 50px;
+  background-color: #00373b;
+  #select {
+    width: 50px;
+    height: 50px;
+    margin-left: 5px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    background-image: url(../../../assets/img/layers.svg);
+  }
+}

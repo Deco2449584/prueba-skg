@@ -1,0 +1,143 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+
+  .logos {
+    display: flex;
+    align-items: center;
+    width: 520px;
+    height: 80px;
+    gap: 5px;
+    #logo1 {
+      width: 270px;
+      height: 50px;
+      background-repeat: no-repeat;
+      background-size: contain; /* Ajustar imagen manteniendo la relación de aspecto */
+      background-image: url(../../../assets/img/logoalcaldia.svg);
+    }
+    #logo2 {
+      width: 250px;
+      height: 50px;
+      background-repeat: no-repeat;
+      background-size: contain; /* Ajustar imagen manteniendo la relación de aspecto */
+      background-image: url(../../../assets/img/Logos.svg);
+    }
+  }
+
+  .indicadores {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+    height: 80px;
+    #reloj {
+      background-image: url(../../../assets/img/Velocidad.svg);
+      background-repeat: no-repeat;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+    }
+    #advertencia {
+      background-image: url(../../../assets/img/Incidentes1.svg);
+      background-repeat: no-repeat;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+    }
+    #carrito {
+      background-image: url(../../../assets/img/Carros.svg);
+      background-repeat: no-repeat;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+    }
+    #poli {
+      background-image: url(../../../assets/img/Agentes1.svg);
+      background-repeat: no-repeat;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+    }
+    span {
+      color: #fff;
+      margin-right: 15px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+  .configuraciones {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 80px;
+
+    #fecha {
+      color: #fff;
+      font-size: 16px; /* work sans regular */
+      font-weight: regular;
+    }
+    #hora {
+      color: #fff;
+      font-size: 18px; /* work sans semi bold */
+      font-weight: bold;
+    }
+  }
+  .secion {
+    width: 270px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    #info {
+      width: 50px;
+      height: 50px;
+      background-image: url(../../../assets/img/info1.svg);
+      background-repeat: no-repeat;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    #task {
+      width: 50px;
+      height: 50px;
+      background-image: url(../../../assets/img/Configuracion.svg);
+      background-repeat: no-repeat;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    #gear {
+      width: 50px;
+      height: 50px;
+      background-image: url(../../../assets/img/IconosConfiguración1.svg);
+      background-repeat: no-repeat;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    span {
+      color: #fff;
+      margin: 8px;
+      margin-left: 0px;
+      font-size: 16px;
+      font-weight: regular;
+    }
+    #user {
+      width: 50px;
+      height: 50px;
+      background-image: url(../../../assets/img/Cuenta1.svg);
+      background-repeat: no-repeat;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    #info:hover,
+    #task:hover,
+    #gear:hover,
+    #user:hover {
+      transform: translate(0, -2px); /* Mover hacia arriba 5px al hacer hover */
+    }
+  }
+}
