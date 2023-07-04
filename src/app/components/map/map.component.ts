@@ -30,9 +30,56 @@ export class MapComponent implements OnInit, AfterViewInit {
       attributionControl: false,
       accessToken: (mapboxgl as any).accessToken || environment.mapboxToken,
     });
-
+    // Crear una instancia del popup fuera del evento para poder acceder a ella en ambos eventos
+    const popup = new mapboxgl.Popup({
+      closeButton: false,
+      closeOnClick: false,
+    });
     // Escuchar el evento 'style.load' del mapa
     map.on('style.load', () => {
+      //evento hover
+      map.on('mouseenter', 'unclustered-point', (e) => {
+        map.getCanvas().style.cursor = 'pointer';
+
+        const features = map.queryRenderedFeatures(e.point, {
+          layers: ['unclustered-point'],
+        });
+
+        if (features && features.length > 0) {
+          const clusterProperties = features[0].properties as {
+            cluster_id?: number;
+            UBICACION: string;
+          };
+
+          const clusterId = clusterProperties.cluster_id;
+          const clusterUbicacion = clusterProperties.UBICACION;
+
+          // Verificar si la propiedad 'cluster_id' existe y tiene un valor válido
+          const clusterIdText =
+            clusterId !== undefined
+              ? `<p style="margin: 0;"><strong>ID:</strong> ${clusterId}</p>`
+              : '';
+
+          // Configurar el contenido del popup con la información
+          const popupContent = `
+      <div id="custom-popup" style="background-color: #f8f8f8; color: #333; border-radius: 4px; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15); padding: 10px;">
+        ${clusterIdText}
+        <p style="margin: 0;"><strong>UBICACION:</strong> ${clusterUbicacion}</p>
+      </div>
+    `;
+
+          // Establecer el contenido y la ubicación del popup
+          popup.setLngLat(e.lngLat).setHTML(popupContent).addTo(map);
+        }
+      });
+      //evento unhover
+      map.on('mouseleave', 'unclustered-point', () => {
+        map.getCanvas().style.cursor = '';
+
+        // Cerrar el popup
+        popup.remove();
+      });
+      //evento click
       map.on('click', 'unclustered-point', (e) => {
         if (e.features && e.features.length > 0) {
           const feature = e.features[0];
@@ -51,11 +98,16 @@ export class MapComponent implements OnInit, AfterViewInit {
             new mapboxgl.Popup()
               .setLngLat(coordinates as mapboxgl.LngLatLike)
               .setHTML(
-                `<strong>TIPO:</strong> ${properties.TIPO}<br>` +
-                  `<strong>ADMINISTRA:</strong> ${properties.ADMINISTRA}<br>` +
-                  `<strong>N_RUTAS:</strong> ${properties.N_RUTAS}<br>` +
-                  `<strong>UBICACION:</strong> ${properties.UBICACION}<br>` +
-                  `<strong>ID:</strong> ${properties.ID}`
+                `<div id="custom-popup" style="background-color: #f8f8f8; color: #333; border-radius: 4px; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15); padding: 20px;">
+      <h3 style="margin: 0 0 10px; font-size: 18px;">Información de parada de autobús</h3>
+      <hr style="border-color: #ccc; margin-bottom: 10px;">
+      <p style="margin-bottom: 5px;"><strong>TIPO:</strong> ${properties.TIPO}</p>
+      <p style="margin-bottom: 5px;"><strong>ADMINISTRA:</strong> ${properties.ADMINISTRA}</p>
+      <p style="margin-bottom: 5px;"><strong>N_RUTAS:</strong> ${properties.N_RUTAS}</p>
+      <p style="margin-bottom: 5px;"><strong>UBICACION:</strong> ${properties.UBICACION}</p>
+      <p style="margin-bottom: 0;"><strong>ID:</strong> ${properties.ID}</p>
+    </div>
+  `
               )
               .addTo(map);
           }
