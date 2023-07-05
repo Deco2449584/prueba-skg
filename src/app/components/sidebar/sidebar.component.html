@@ -1,46 +1,5 @@
-<div class="modulos">
-  <div class="cuadros">
-    <div
-      id="semaforo"
-      (mouseover)="hoverButtonEvent(1)"
-      (mouseleave)="hoverButtonEvent(1)"
-    ></div>
-  </div>
-  <div class="cuadros">
-    <div
-      id="ad"
-      (mouseover)="hoverButtonEvent(2)"
-      (mouseleave)="hoverButtonEvent(2)"
-    ></div>
-  </div>
-  <div class="cuadros">
-    <div
-      id="police"
-      (mouseover)="hoverButtonEvent(3)"
-      (mouseleave)="hoverButtonEvent(3)"
-    ></div>
-  </div>
-  <div class="cuadros">
-    <div
-      id="clima"
-      (mouseover)="hoverButtonEvent(4)"
-      (mouseleave)="hoverButtonEvent(4)"
-    ></div>
-  </div>
-  <div class="cuadros">
-    <div
-      id="aforo"
-      (mouseover)="hoverButtonEvent(5)"
-      (mouseleave)="hoverButtonEvent(5)"
-    ></div>
-  </div>
-  <div class="cuadros">
-    <div
-      id="psm"
-      (mouseover)="hoverButtonEvent(6)"
-      (mouseleave)="hoverButtonEvent(6)"
-    ></div>
-  </div>
+<div class="modulo">
+  <app-cards (hoverButton)="capturarValor($event)"></app-cards>
 </div>
 <div class="capas">
   <div (click)="showLayer('hola mundo')" id="select"></div>

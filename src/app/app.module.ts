@@ -9,6 +9,8 @@ import { ParaderosComponent } from './components/capas/paraderos/paraderos.compo
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
+import { FlotantesComponent } from './components/flotantes/flotantes.component';
+import { CardsComponent } from './components/cards/cards.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { AppRoutingModule } from './app-routing.module';
     SidebarComponent,
     ParaderosComponent,
     HomeComponent,
+    FlotantesComponent,
+    CardsComponent,
   ],
   imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule],
   providers: [],

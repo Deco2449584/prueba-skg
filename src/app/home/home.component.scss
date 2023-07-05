@@ -40,8 +40,8 @@
   margin-top: 80px;
   position: absolute;
   z-index: 100;
-  width: 100px;
-  height: 50px;
+  width: 128px;
+  height: 65px;
   border-bottom: 1px solid #fff;
   display: flex;
   justify-content: space-between;
@@ -52,12 +52,12 @@
 .hover-div2 {
   margin: 0;
   margin-left: 64px;
-  margin-top: 131px;
+  margin-top: 146px;
   position: absolute;
   z-index: 100;
   background-color: #011112;
-  width: 100px;
-  height: 50px;
+  width: 128px;
+  height: 65px;
   border-bottom: 1px solid #fff;
   display: flex;
   justify-content: space-between;
@@ -68,12 +68,12 @@
 .hover-div3 {
   margin: 0;
   margin-left: 64px;
-  margin-top: 182px;
+  margin-top: 212px;
   position: absolute;
   z-index: 100;
   background-color: #011112;
-  width: 100px;
-  height: 50px;
+  width: 128px;
+  height: 65px;
   border-bottom: 1px solid #fff;
   display: flex;
   justify-content: space-between;
@@ -84,12 +84,12 @@
 .hover-div4 {
   margin: 0;
   margin-left: 64px;
-  margin-top: 233px;
+  margin-top: 279px;
   position: absolute;
   z-index: 100;
   background-color: #011112;
-  width: 50px;
-  height: 50px;
+  width: 64px;
+  height: 65px;
   border-bottom: 1px solid #fff;
   display: flex;
   justify-content: space-between;
@@ -104,22 +104,17 @@
   bottom: 0; /* Ajusta la posición en relación con la parte inferior */
   z-index: 100;
   width: 64px;
-  height: 50px;
+  height: 65px;
   background-color: #011112;
   #bus {
     width: 50px;
     height: 40px;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-left: 10px;
     position: relative;
     background-image: url(../../assets/img/bus-stop.svg);
     background-repeat: no-repeat;
     cursor: pointer;
-    filter: brightness(1.2); /* Ajusta el brillo si deseas resaltar la imagen */
-    transition: filter 0.3s;
-  }
-  #bus:hover {
-    filter: brightness(1.5) drop-shadow(0 0 5px #00ff00);
   }
 }
 
@@ -141,4 +136,12 @@
 }
 .hidden {
   display: none;
+}
+
+.neon {
+  filter: brightness(1.2); /* Ajusta el brillo si deseas resaltar la imagen */
+  transition: filter 0.3s;
+}
+.neon:hover {
+  filter: brightness(1.5) drop-shadow(0 0 5px #00ff00);
 }
