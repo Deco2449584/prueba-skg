@@ -34,7 +34,11 @@
   </ng-container>
 
   <div class="bus">
-    <div id="bus" class="neon"></div>
+    <div
+      id="bus"
+      class="neon"
+      (click)="capaBuses = !capaBuses; mostrarValorConsola()"
+    ></div>
   </div>
-  <app-map class="contenido"></app-map>
+  <app-map class="contenido" [capa]="capaBuses"></app-map>
 </div>

@@ -1,5 +1,11 @@
-// Importar los módulos y servicios necesarios
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+// Importar los módulos y servicios necesarios//////////////////////////////////////////
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  Input,
+  OnChanges,
+} from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from '../../environments/environment';
 import { DataService } from '../../data/data.service';
@@ -10,23 +16,28 @@ import {
   Properties,
 } from '../../models/geojson.interface';
 
-// Decorador del componente
+// Decorador del componente/////////////////////////////////////////////////////////
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
+
+// exportar la clase///////////////////////////////
 export class MapComponent implements OnInit, AfterViewInit {
+  private map!: mapboxgl.Map;
+  //variable para activar o desactivar la capa
+  @Input() capa: boolean = true;
   // Inyectar el servicio DataService
   constructor(private dataService: DataService) {}
   // Método que se ejecuta después de que la vista se ha inicializado
   ngAfterViewInit() {
     // Crear una nueva instancia del objeto Map de mapboxgl
-    const map = new mapboxgl.Map({
+    this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/dark-v11',
       center: [-75.49806374151461, 5.067157286210732],
-      zoom: 9,
+      zoom: 13,
       attributionControl: false,
       accessToken: (mapboxgl as any).accessToken || environment.mapboxToken,
     });
@@ -35,98 +46,21 @@ export class MapComponent implements OnInit, AfterViewInit {
       closeButton: false,
       closeOnClick: false,
     });
+
     // Escuchar el evento 'style.load' del mapa
-    map.on('style.load', () => {
-      //evento hover
-      map.on('mouseenter', 'unclustered-point', (e) => {
-        map.getCanvas().style.cursor = 'pointer';
-
-        const features = map.queryRenderedFeatures(e.point, {
-          layers: ['unclustered-point'],
-        });
-
-        if (features && features.length > 0) {
-          const clusterProperties = features[0].properties as {
-            cluster_id?: number;
-            UBICACION: string;
-          };
-
-          const clusterId = clusterProperties.cluster_id;
-          const clusterUbicacion = clusterProperties.UBICACION;
-
-          // Verificar si la propiedad 'cluster_id' existe y tiene un valor válido
-          const clusterIdText =
-            clusterId !== undefined
-              ? `<p style="margin: 0;"><strong>ID:</strong> ${clusterId}</p>`
-              : '';
-
-          // Configurar el contenido del popup con la información
-          const popupContent = `
-      <div id="custom-popup" style="background-color: #f8f8f8; color: #333; border-radius: 4px; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15); padding: 10px;">
-        ${clusterIdText}
-        <p style="margin: 0;"><strong>UBICACION:</strong> ${clusterUbicacion}</p>
-      </div>
-    `;
-
-          // Establecer el contenido y la ubicación del popup
-          popup.setLngLat(e.lngLat).setHTML(popupContent).addTo(map);
-        }
-      });
-      //evento unhover
-      map.on('mouseleave', 'unclustered-point', () => {
-        map.getCanvas().style.cursor = '';
-
-        // Cerrar el popup
-        popup.remove();
-      });
-      //evento click
-      map.on('click', 'unclustered-point', (e) => {
-        if (e.features && e.features.length > 0) {
-          const feature = e.features[0];
-          const geometry = feature.geometry as Geometry;
-          const properties = feature.properties as Properties;
-
-          if (geometry && geometry.coordinates) {
-            const coordinates = geometry.coordinates.slice();
-            const busStopName = properties.UBICACION || '';
-            const busStopAddress = properties.ESTADO_DE_SENAL || '';
-
-            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-            }
-
-            new mapboxgl.Popup()
-              .setLngLat(coordinates as mapboxgl.LngLatLike)
-              .setHTML(
-                `<div id="custom-popup" style="background-color: #f8f8f8; color: #333; border-radius: 4px; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15); padding: 20px;">
-      <h3 style="margin: 0 0 10px; font-size: 18px;">Información de parada de autobús</h3>
-      <hr style="border-color: #ccc; margin-bottom: 10px;">
-      <p style="margin-bottom: 5px;"><strong>TIPO:</strong> ${properties.TIPO}</p>
-      <p style="margin-bottom: 5px;"><strong>ADMINISTRA:</strong> ${properties.ADMINISTRA}</p>
-      <p style="margin-bottom: 5px;"><strong>N_RUTAS:</strong> ${properties.N_RUTAS}</p>
-      <p style="margin-bottom: 5px;"><strong>UBICACION:</strong> ${properties.UBICACION}</p>
-      <p style="margin-bottom: 0;"><strong>ID:</strong> ${properties.ID}</p>
-    </div>
-  `
-              )
-              .addTo(map);
-          }
-        }
-      });
-
+    this.map.on('style.load', () => {
       // Añadir el control de navegación al mapa
-      map.addControl(new mapboxgl.NavigationControl());
-
+      this.map.addControl(new mapboxgl.NavigationControl());
       // Obtener los datos del servicio DataService
       this.dataService.getDatosFromAPI().subscribe((data: any) => {
         // Procesar los datos recibidos y agregarlos al mapa
         if (data && data.features) {
           // Remover la fuente de datos existente si existe
-          if (map.getSource('datos')) {
-            map.removeSource('datos');
+          if (this.map.getSource('datos')) {
+            this.map.removeSource('datos');
           }
           // Añadir la fuente de datos al mapa
-          map.addSource('datos', {
+          this.map.addSource('datos', {
             type: 'geojson',
             data: data,
             cluster: true,
@@ -156,10 +90,10 @@ export class MapComponent implements OnInit, AfterViewInit {
             );
             if (imageData) {
               // Añadir la imagen al mapa como un icono
-              map.addImage('bus-stop-icon', imageData);
+              this.map.addImage('bus-stop-icon', imageData);
 
               // Añadir una capa para los clusters
-              map.addLayer({
+              this.map.addLayer({
                 id: 'clusters',
                 type: 'circle',
                 source: 'datos',
@@ -187,7 +121,7 @@ export class MapComponent implements OnInit, AfterViewInit {
               });
 
               // Añadir una capa para el recuento de clusters
-              map.addLayer({
+              this.map.addLayer({
                 id: 'cluster-count',
                 type: 'symbol',
                 source: 'datos',
@@ -200,7 +134,7 @@ export class MapComponent implements OnInit, AfterViewInit {
               });
 
               // Añadir una capa para los puntos individuales (paradas de autobús)
-              map.addLayer({
+              this.map.addLayer({
                 id: 'unclustered-point',
                 type: 'symbol',
                 source: 'datos',
@@ -215,10 +149,119 @@ export class MapComponent implements OnInit, AfterViewInit {
           };
         }
       });
+      //evento hover para los puntos uncluster
+      this.map.on('mouseenter', 'unclustered-point', (e) => {
+        this.map.getCanvas().style.cursor = 'pointer'; //cambia el cursor del mouse a una forma de puntero
+        // recupera las características (elementos) que están siendo renderizadas en el punto del mapa donde ocurrió el evento.
+        const features = this.map.queryRenderedFeatures(e.point, {
+          layers: ['unclustered-point'],
+        });
+        //Se verifica si se encontraron características y si la lista tiene al menos un elemento.
+        if (features && features.length > 0) {
+          // Obtener las propiedades del primer elemento de la lista de características
+          const clusterProperties = features[0].properties as {
+            UBICACION: string;
+            ID: string; // Se asume que hay una propiedad "ID" en las características
+          };
+
+          // Extraer los valores relevantes de las propiedades
+          const clusterUbicacion = clusterProperties.UBICACION;
+          const clusterID = clusterProperties.ID;
+
+          // Configurar el contenido del popup con la información extraída, incluyendo el nuevo idText
+          const popupContent = `
+          <div id="custom-popup" style="background-color: #f8f8f8; color: #333; border-radius: 4px; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15); padding: 10px;">
+           <p style="margin: 0;"><strong>ID:</strong> ${clusterID}</p>
+           <p style="margin: 0;"><strong>UBICACION:</strong> ${clusterUbicacion}</p>
+             </div>
+               `;
+          // Establecer el contenido y la ubicación del popup
+          popup.setLngLat(e.lngLat).setHTML(popupContent).addTo(this.map);
+        }
+      });
+
+      //evento unhover
+      this.map.on('mouseleave', 'unclustered-point', () => {
+        this.map.getCanvas().style.cursor = '';
+
+        // Cerrar el popup
+        popup.remove();
+      });
+      //evento click
+      this.map.on('click', 'unclustered-point', (e) => {
+        if (e.features && e.features.length > 0) {
+          const feature = e.features[0];
+          const geometry = feature.geometry as Geometry;
+          const properties = feature.properties as Properties;
+
+          if (geometry && geometry.coordinates) {
+            const coordinates = geometry.coordinates.slice();
+            /* const busStopName = properties.UBICACION || '';
+            const busStopAddress = properties.ESTADO_DE_SENAL || ''; */
+
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+
+            new mapboxgl.Popup()
+              .setLngLat(coordinates as mapboxgl.LngLatLike)
+              .setHTML(
+                `<div id="custom-popup" style="background-color: #f8f8f8; color: #333; border-radius: 4px; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15); padding: 20px;">
+      <h3 style="margin: 0 0 10px; font-size: 18px;">Información de parada de autobús</h3>
+      <hr style="border-color: #ccc; margin-bottom: 10px;">
+      <p style="margin-bottom: 5px;"><strong>TIPO:</strong> ${properties.TIPO}</p>
+      <p style="margin-bottom: 5px;"><strong>ADMINISTRA:</strong> ${properties.ADMINISTRA}</p>
+      <p style="margin-bottom: 5px;"><strong>N_RUTAS:</strong> ${properties.N_RUTAS}</p>
+      <p style="margin-bottom: 5px;"><strong>UBICACION:</strong> ${properties.UBICACION}</p>
+      <p style="margin-bottom: 0;"><strong>ID:</strong> ${properties.ID}</p>
+    </div>
+  `
+              )
+              .addTo(this.map);
+          }
+        }
+      });
     });
+  }
+  addToggleButtons() {
+    // Si las capas no se agregaron al mapa, cancelar
+    if (
+      !this.map.getLayer('unclustered-point') ||
+      !this.map.getLayer('cluster-count') ||
+      !this.map.getLayer('clusters')
+    ) {
+      return;
+    }
+    // Enumerar los ids de las capas que se pueden alternar
+    const toggleableLayerIds = [
+      'unclustered-point',
+      'cluster-count',
+      'clusters',
+    ];
+    // Configurar el comportamiento de visibilidad para cada capa
+    for (const id of toggleableLayerIds) {
+      // Verificar si la capa debe estar visible o no
+      const layerVisible = this.capa;
+
+      // Configurar la visibilidad de la capa
+      if (layerVisible) {
+        this.map.setLayoutProperty(id, 'visibility', 'visible');
+        this.map.setLayoutProperty(id, 'visibility', 'visible');
+        this.map.setLayoutProperty(id, 'visibility', 'visible');
+      } else {
+        this.map.setLayoutProperty(id, 'visibility', 'none');
+        this.map.setLayoutProperty(id, 'visibility', 'none');
+        this.map.setLayoutProperty(id, 'visibility', 'none');
+      }
+    }
   }
 
   ngOnInit() {
     // Código de inicialización adicional si es necesario
+    console.log('oninit', this.capa);
+  }
+  ngOnChanges() {
+    this.addToggleButtons();
+    console.log('Valor de capa en el componente hijo:', this.capa);
   }
 }
