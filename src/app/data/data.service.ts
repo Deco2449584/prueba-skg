@@ -48,9 +48,6 @@ export class DataService {
                 OBSERVACIONES: null,
               },
             },
-            // ...
-            // Se agregan más objetos Feature con datos por defecto
-            // ...
           ],
         };
 
