@@ -32,7 +32,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     // Crear una instancia del popup fuera del evento para poder acceder a ella en ambos eventos
     const popup = new mapboxgl.Popup({
       closeButton: false,
-      closeOnClick: false,
+      closeOnClick: true,
     });
 
     // Escuchar el evento 'style.load' del mapa
@@ -56,7 +56,7 @@ export class MapComponent implements OnInit, AfterViewInit {
           const clusterUbicacion = clusterProperties.UBICACION;
           const clusterID = clusterProperties.ID;
 
-          // Configurar el contenido del popup con la información extraída, incluyendo el nuevo idText
+          // Configurar el contenido del popup con la información extraída
           const popupContent = `
           <div class="modalhover">
       <div class="modalburbuja">
@@ -148,7 +148,7 @@ export class MapComponent implements OnInit, AfterViewInit {
             type: 'geojson',
             data: data,
             cluster: true,
-            clusterMaxZoom: 20, // Max zoom to cluster points on
+            clusterMaxZoom: 17, // Max zoom to cluster points on
             clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
           });
 
