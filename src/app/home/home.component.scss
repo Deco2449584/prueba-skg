@@ -145,3 +145,8 @@
 .neon:hover {
   filter: brightness(1.5) drop-shadow(0 0 5px #00ff00);
 }
+.neonbus {
+  filter: brightness(1.2); /* Ajusta el brillo si deseas resaltar la imagen */
+  transition: filter 0.3s;
+  filter: brightness(1.5) drop-shadow(0 0 5px #00ff00);
+}

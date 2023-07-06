@@ -36,8 +36,8 @@
   <div class="bus">
     <div
       id="bus"
-      class="neon"
       (click)="capaBuses = !capaBuses; mostrarValorConsola()"
+      [class.neonbus]="capaBuses"
     ></div>
   </div>
   <app-map class="contenido" [capa]="capaBuses"></app-map>

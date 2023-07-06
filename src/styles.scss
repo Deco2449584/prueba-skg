@@ -163,3 +163,13 @@
   color: white !important;
   font-size: 24px !important;
 }
+
+.mapboxgl-popup-anchor-bottom,
+.mapboxgl-popup-anchor-bottom-left,
+.mapboxgl-popup-anchor-bottom-right,
+.mapboxgl-popup-anchor-bottom-top-right {
+  translate: none !important;
+}
+.mapboxgl-popup-tip {
+  display: none;
+}

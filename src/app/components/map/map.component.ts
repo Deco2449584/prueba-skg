@@ -1,20 +1,9 @@
 // Importar los módulos y servicios necesarios//////////////////////////////////////////
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  Input,
-  OnChanges,
-} from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from '../../environments/environment';
 import { DataService } from '../../data/data.service';
-import {
-  GeoJSONData,
-  Feature,
-  Geometry,
-  Properties,
-} from '../../models/geojson.interface';
+import { Geometry, Properties } from '../../models/geojson.interface';
 
 // Decorador del componente/////////////////////////////////////////////////////////
 @Component({
@@ -22,10 +11,9 @@ import {
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
-
 // exportar la clase///////////////////////////////
 export class MapComponent implements OnInit, AfterViewInit {
-  private map!: mapboxgl.Map;
+  private map!: mapboxgl.Map; //solo es accesible dentro de la clase donde se declara
   //variable para activar o desactivar la capa
   @Input() capa: boolean = true;
   // Inyectar el servicio DataService
@@ -37,7 +25,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       container: 'map',
       style: 'mapbox://styles/mapbox/dark-v11',
       center: [-75.49806374151461, 5.067157286210732],
-      zoom: 19,
+      zoom: 13,
       attributionControl: false,
       accessToken: (mapboxgl as any).accessToken || environment.mapboxToken,
     });
@@ -99,8 +87,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
           if (geometry && geometry.coordinates) {
             const coordinates = geometry.coordinates.slice();
-            /* const busStopName = properties.UBICACION || '';
-            const busStopAddress = properties.ESTADO_DE_SENAL || ''; */
 
             while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
               coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
@@ -162,7 +148,7 @@ export class MapComponent implements OnInit, AfterViewInit {
             type: 'geojson',
             data: data,
             cluster: true,
-            clusterMaxZoom: 14, // Max zoom to cluster points on
+            clusterMaxZoom: 20, // Max zoom to cluster points on
             clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
           });
 
@@ -201,10 +187,12 @@ export class MapComponent implements OnInit, AfterViewInit {
                     'step',
                     ['get', 'point_count'],
                     '#20d3d8',
-                    20,
+                    5,
                     '#2099d8',
-                    100,
+                    20,
                     '#6d60a9',
+                    50,
+                    '#006667',
                   ],
                   'circle-radius': [
                     'step',
@@ -240,7 +228,7 @@ export class MapComponent implements OnInit, AfterViewInit {
                 layout: {
                   'icon-image': 'bus-stop-icon',
                   'icon-size': 0.5,
-                  'icon-allow-overlap': true,
+                  'icon-allow-overlap': false,
                 },
               });
             }

@@ -1,10 +1,9 @@
-<div
-  (mouseover)="hoverButtonEvent(item.id)"
-  (mouseleave)="hoverButtonEvent(-1)"
-  class="cards"
-  *ngFor="let item of items"
->
-  <div class="card">
+<div class="cards" *ngFor="let item of items">
+  <div
+    class="card"
+    (mouseover)="hoverButtonEvent(item.id)"
+    (mouseleave)="hoverButtonEvent(-1)"
+  >
     <img
       [src]="'../../../assets/cards/' + item.iconFileName + '.svg'"
       alt="Icono"
