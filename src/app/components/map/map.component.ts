@@ -41,7 +41,6 @@ export class MapComponent implements OnInit, AfterViewInit {
       this.map.on('mouseenter', 'unclustered-point', (e) => {
         // Cambiar el cursor del mouse a una forma de puntero
         this.map.getCanvas().style.cursor = 'pointer';
-
         // Recuperar las características (elementos) que están siendo renderizadas en el punto del mapa donde ocurrió el evento
         const features = this.map.queryRenderedFeatures(e.point, {
           layers: ['unclustered-point'],

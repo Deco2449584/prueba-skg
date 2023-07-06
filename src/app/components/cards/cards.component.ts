@@ -18,6 +18,7 @@ export class CardsComponent {
       { id: 3, iconFileName: 'icono3' },
       { id: 4, iconFileName: 'icono4' },
       { id: 5, iconFileName: 'icono5' },
+      { id: 6, iconFileName: 'icono6' },
     ];
   }
   hoverButtonEvent(id: number) {
