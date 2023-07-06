@@ -1,10 +1,12 @@
 .cards {
+  margin: 0;
+  padding: 0;
   width: 64px;
   height: 65px;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centra verticalmente los elementos */
-  align-items: center; /* Centra horizontalmente los elementos */
+  justify-content: center;
+  align-items: center;
   border-bottom: 1px solid #fff;
   cursor: pointer;
   filter: brightness(2.2);
@@ -16,6 +18,14 @@
 }
 
 .card {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  img {
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+  }
 }

@@ -35,7 +35,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     // Crear una nueva instancia del objeto Map de mapboxgl
     this.map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/dark-v10',
+      style: 'mapbox://styles/mapbox/dark-v11',
       center: [-75.49806374151461, 5.067157286210732],
       zoom: 19,
       attributionControl: false,
@@ -127,7 +127,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       <img src="../../../assets/modal_paraderos/Group.svg" alt="" />
       <p>${properties.TIPO}</p>
     </div>
-    <div class="conten_modal_paradero">
+    <div class="conten_modal_paradero" id=content_modal_paradero>
       <strong>NO. DE RUTAS</strong>
       <img src="../../../assets/modal_paraderos/rutas1.svg" alt="" />
       <p>${properties.N_RUTAS}</p>

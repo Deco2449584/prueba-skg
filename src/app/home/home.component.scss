@@ -102,17 +102,16 @@
   margin: 0;
   margin-left: 64px;
   position: fixed;
-  bottom: 0; /* Ajusta la posición en relación con la parte inferior */
-  z-index: 100;
+  bottom: 0;
+  z-index: 5;
   width: 64px;
-  height: 65px;
+  height: 64px;
   background-color: #011112;
   #bus {
     width: 50px;
     height: 40px;
     margin-top: 20px;
     margin-left: 10px;
-    position: relative;
     background-image: url(../../assets/img/bus-stop.svg);
     background-repeat: no-repeat;
     cursor: pointer;

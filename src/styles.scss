@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 
 * {
   margin: 0;
@@ -7,7 +8,7 @@
 
 .custom-popup {
   width: 784px;
-  height: 212px;
+  height: 217px;
   background-color: #051619;
   display: flex;
   flex-direction: column;
@@ -15,15 +16,18 @@
   align-items: center;
   border-radius: 13px;
   color: #fff;
+  text-align: center;
+  align-self: center;
 }
 .modal_paraderos_header {
   width: 784px;
   height: 48px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: #092023;
   border-radius: 13px;
+  text-align: center;
 }
 .modal_paraderos_body {
   width: 784px;
@@ -41,7 +45,10 @@
   justify-content: center;
   text-align: center;
 }
-
+#content_modal_paradero {
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+}
 #imgbus {
   width: 32px;
   height: 32px;
@@ -56,29 +63,51 @@
   justify-content: center;
 }
 #idmodal {
-  width: 46px;
-  height: 48px;
+  width: 76px;
+  height: 24px;
+  text-align: center;
+
+  p,
+  strong {
+    color: #c6ff01;
+    gap: 2px;
+    font-size: 20px;
+    font-weight: semibold;
+    text-align: center;
+  }
 }
 #ubicacionmodalparadero {
   flex-grow: 1;
-  height: 48px;
+  height: 24px;
+  text-align: center;
+  p {
+    height: 48px;
+    font-size: 20px;
+    font-weight: semibold;
+    color: #eefdca;
+    text-align: center;
+  }
 }
 
 .modalhover {
   background-color: #0c272b;
-  width: 274px;
-  height: 94px;
-  border-radius: 40px;
+  width: 184px;
+  height: 83px;
+  border-radius: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: mixed;
 }
+
 .modalburbuja {
   background-color: #0c272b;
   margin-top: 10px;
   padding: 3px;
-  width: 230px;
-  height: 95px;
+  width: 184px;
+  height: 83px;
   clip-path: polygon(
     0% 0%,
     100% 0,
@@ -94,13 +123,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
   gap: 10px;
-  border-radius: 40px;
+  font-size: 20px;
+  font-weight: semibold;
 }
+
 .modalhoverubicacion {
   height: 60px;
   font-size: 13px;
+  border-radius: 50%;
 }
+
 .modalhoverid {
   height: 11px;
   text-align: center;
@@ -114,7 +148,6 @@
 .mapboxgl-popup {
   /* Anula los estilos predeterminados del popup */
   max-width: none !important;
-  transform: none !important;
   translate: none !important;
 }
 .mapboxgl-popup-content {
@@ -123,4 +156,10 @@
   padding: 0 !important;
   background-color: inherit !important;
   border-bottom-left-radius: inherit !important;
+}
+.mapboxgl-popup-close-button {
+  width: 24px !important;
+  height: 24px !important;
+  color: white !important;
+  font-size: 24px !important;
 }
