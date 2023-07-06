@@ -39,12 +39,15 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.map.on('style.load', () => {
       //evento hover para los puntos uncluster
       this.map.on('mouseenter', 'unclustered-point', (e) => {
-        this.map.getCanvas().style.cursor = 'pointer'; //cambia el cursor del mouse a una forma de puntero
-        // recupera las características (elementos) que están siendo renderizadas en el punto del mapa donde ocurrió el evento.
+        // Cambiar el cursor del mouse a una forma de puntero
+        this.map.getCanvas().style.cursor = 'pointer';
+
+        // Recuperar las características (elementos) que están siendo renderizadas en el punto del mapa donde ocurrió el evento
         const features = this.map.queryRenderedFeatures(e.point, {
           layers: ['unclustered-point'],
         });
-        //Se verifica si se encontraron características y si la lista tiene al menos un elemento.
+
+        // Verificar si se encontraron características y si la lista tiene al menos un elemento
         if (features && features.length > 0) {
           // Obtener las propiedades del primer elemento de la lista de características
           const clusterProperties = features[0].properties as {
@@ -58,19 +61,45 @@ export class MapComponent implements OnInit, AfterViewInit {
 
           // Configurar el contenido del popup con la información extraída
           const popupContent = `
-          <div class="modalhover">
-      <div class="modalburbuja">
-        <div class="modalhoverid"> ${clusterID}</div>
-        <div class="modalhoverubicacion">
-          ${clusterUbicacion}
+      <div class="modalhover">
+        <div class="modalburbuja">
+          <div class="modalhoverid">${clusterID}</div>
+          <div class="modalhoverubicacion">
+            ${clusterUbicacion}
+          </div>
         </div>
       </div>
-    </div>
-               `;
+    `;
+
+          // Obtener las coordenadas lngLat del evento
+          const lngLat = e.lngLat;
+
           // Establecer el contenido y la ubicación del popup
-          popup.setLngLat(e.lngLat).setHTML(popupContent).addTo(this.map);
+          popup.setLngLat(lngLat).setHTML(popupContent).addTo(this.map);
+
+          // Obtener el tamaño del popup para calcular el desplazamiento
+          const popupSize = popup.getElement()?.getBoundingClientRect();
+
+          if (popupSize) {
+            // Calcular el desplazamiento para centrar el popup sobre el punto
+            const offsetX = -popupSize.width / 2;
+            const offsetY = -popupSize.height;
+
+            // Obtener las coordenadas del punto en píxeles
+            const pointPixel = this.map.project(lngLat);
+
+            // Calcular la posición ajustada del popup
+            const adjustedPosition = this.map.unproject([
+              pointPixel.x + offsetX,
+              pointPixel.y + offsetY,
+            ]);
+
+            // Establecer la ubicación ajustada del popup
+            popup.setLngLat(adjustedPosition);
+          }
         }
       });
+
       //evento unhover
       this.map.on('mouseleave', 'unclustered-point', () => {
         this.map.getCanvas().style.cursor = '';
