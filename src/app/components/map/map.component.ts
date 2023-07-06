@@ -70,10 +70,14 @@ export class MapComponent implements OnInit, AfterViewInit {
 
           // Configurar el contenido del popup con la información extraída, incluyendo el nuevo idText
           const popupContent = `
-          <div id="custom-popup" style="background-color: #f8f8f8; color: #333; border-radius: 4px; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15); padding: 10px;">
-           <p style="margin: 0;"><strong>ID:</strong> ${clusterID}</p>
-           <p style="margin: 0;"><strong>UBICACION:</strong> ${clusterUbicacion}</p>
-             </div>
+          <div class="modalhover">
+      <div class="modalburbuja">
+        <div class="modalhoverid"> ${clusterID}</div>
+        <div class="modalhoverubicacion">
+          ${clusterUbicacion}
+        </div>
+      </div>
+    </div>
                `;
           // Establecer el contenido y la ubicación del popup
           popup.setLngLat(e.lngLat).setHTML(popupContent).addTo(this.map);
@@ -105,16 +109,37 @@ export class MapComponent implements OnInit, AfterViewInit {
             new mapboxgl.Popup()
               .setLngLat(coordinates as mapboxgl.LngLatLike)
               .setHTML(
-                `<div id="custom-popup" style="background-color: #f8f8f8; color: #333; border-radius: 4px; box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15); padding: 20px;">
-      <h3 style="margin: 0 0 10px; font-size: 18px;">Información de parada de autobús</h3>
-      <hr style="border-color: #ccc; margin-bottom: 10px;">
-      <p style="margin-bottom: 5px;"><strong>TIPO:</strong> ${properties.TIPO}</p>
-      <p style="margin-bottom: 5px;"><strong>ADMINISTRA:</strong> ${properties.ADMINISTRA}</p>
-      <p style="margin-bottom: 5px;"><strong>N_RUTAS:</strong> ${properties.N_RUTAS}</p>
-      <p style="margin-bottom: 5px;"><strong>UBICACION:</strong> ${properties.UBICACION}</p>
-      <p style="margin-bottom: 0;"><strong>ID:</strong> ${properties.ID}</p>
+                `<div class="custom-popup">
+  <div class="modal_paraderos_header">
+    <div id="iconomodalparadero">
+      <img id="imgbus" src="../../../assets/modal_paraderos/bus-stop3.svg" alt="" />
     </div>
-  `
+    <div id="idmodal">
+      <p><strong>ID:</strong>${properties.ID}</p>
+    </div>
+    <div id="ubicacionmodalparadero">
+      <p>${properties.UBICACION}</p>
+    </div>
+  </div>
+  <div class="modal_paraderos_body">
+    <div class="conten_modal_paradero">
+      <strong>TIPO DE PARADERO</strong>
+      <img src="../../../assets/modal_paraderos/Group.svg" alt="" />
+      <p>${properties.TIPO}</p>
+    </div>
+    <div class="conten_modal_paradero">
+      <strong>NO. DE RUTAS</strong>
+      <img src="../../../assets/modal_paraderos/rutas1.svg" alt="" />
+      <p>${properties.N_RUTAS}</p>
+    </div>
+    <div class="conten_modal_paradero">
+      <strong>ADMINISTRADOR</strong>
+      <img src="../../../assets/modal_paraderos/admin1.svg" alt="" />
+      <p>${properties.ADMINISTRA}</p>
+    </div>
+  </div>
+</div>
+`
               )
               .addTo(this.map);
           }

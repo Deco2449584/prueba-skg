@@ -1,0 +1,62 @@
+* {
+  color: white;
+}
+
+.custom-popup {
+  width: 784px;
+  height: 212px;
+  background-color: #051619;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 13px;
+  color: #fff;
+}
+.modal_paraderos_header {
+  width: 784px;
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #092023;
+  border-radius: 13px;
+}
+.modal_paraderos_body {
+  width: 784px;
+  height: 164px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.conten_modal_paradero {
+  width: 240px;
+  height: 145px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#imgbus {
+  width: 32px;
+  height: 32px;
+}
+#iconomodalparadero {
+  width: 70px;
+  height: 48px;
+  border-left: 10px solid #c6ff01;
+  border-radius: 7px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#idmodal {
+  width: 46px;
+  height: 48px;
+}
+#ubicacionmodalparadero {
+  flex-grow: 1;
+  height: 48px;
+}
